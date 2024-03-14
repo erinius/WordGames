@@ -12,7 +12,7 @@ let wordChecker (requiredLetter: char) (allowedLetters: string) =
     let allowedBits = requiredBit ||| wordToBitfield allowedLetters
     isValidWord requiredBit allowedBits
 
-let SpellingBeeFilter (requiredLetter: char) (allowedLetters: string) wordSeq =
+let SpellingBeeFilter (requiredLetter: char) (allowedLetters: string) (wordSeq: string seq) =
     let requiredUpper = requiredLetter |> System.Char.ToUpperInvariant
     let allowedUpper = allowedLetters.ToUpperInvariant()
     let checker = wordChecker requiredUpper allowedUpper
@@ -31,7 +31,9 @@ let main args =
         let requiredLetter = args[0].Chars(0)
 
         let filteredSeq =
-            GetWordsFromFile "words_alpha.txt" |> SpellingBeeFilter requiredLetter args[1]
+            GetWordsFromFile "words_alpha.txt"
+            |> SpellingBeeFilter requiredLetter args[1]
+            |> Seq.filter (fun w -> w.Length >= 4)
 
         for w in filteredSeq do
             printfn "%s" w
