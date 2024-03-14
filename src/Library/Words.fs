@@ -15,6 +15,6 @@ let wordToBitfield (w: string) : int =
 let GetWordsFromFile path =
     File.ReadLines path |> Seq.map (fun w -> w.ToUpperInvariant())
 
-let path = "../../words_alpha.txt"
+let path = "../../word_lists/words_alpha.txt"
 
 let GetWords = GetWordsFromFile path
