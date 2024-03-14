@@ -18,3 +18,6 @@ let GetWordsFromFile path =
 let path = "../../word_lists/words_alpha.txt"
 
 let GetWords = GetWordsFromFile path
+
+let wordsOfLength (length: int) =
+    GetWordsFromFile $"../../word_lists/words_length_{length}.txt"
