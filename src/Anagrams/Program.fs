@@ -3,7 +3,8 @@
 open Words
 
 let areAnagrams (w1: string) (w2: string) =
-    let letterCount (w: string) = w.ToUpperInvariant() |> Seq.countBy id |> Set.ofSeq
+    let letterCount (w: string) =
+        w.ToUpperInvariant() |> Seq.countBy id |> Set.ofSeq
 
     if w1.Length <> w2.Length then
         false
