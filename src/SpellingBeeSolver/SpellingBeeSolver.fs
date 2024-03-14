@@ -31,7 +31,7 @@ let main args =
         let requiredLetter = args[0].Chars(0)
 
         let filteredSeq =
-            GetWordsFromFile "words_alpha.txt"
+            GetWordsFromFile "../../words_alpha.txt"
             |> SpellingBeeFilter requiredLetter args[1]
             |> Seq.filter (fun w -> w.Length >= 4)
 
