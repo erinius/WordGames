@@ -1,14 +1,7 @@
-﻿open System.IO
+﻿module SpellingBeeSolver
 
-let inline charToBitfield (c: char) : int = 1 <<< (c - 'A' |> int)
+open Words
 
-let wordToBitfield (w: string) : int =
-    let mutable bits = 0
-
-    for c in w do
-        bits <- bits ||| charToBitfield c
-
-    bits
 
 let isValidWord (requiredBit: int) (allowedBits: int) (word: string) : bool =
     let givenBits = wordToBitfield word
@@ -18,11 +11,6 @@ let wordChecker (requiredLetter: char) (allowedLetters: string) =
     let requiredBit = charToBitfield requiredLetter
     let allowedBits = requiredBit ||| wordToBitfield allowedLetters
     isValidWord requiredBit allowedBits
-
-let GetWordsFromFile path minLength =
-    File.ReadLines path
-    |> Seq.map (fun w -> w.ToUpperInvariant())
-    |> Seq.filter (fun s -> s.Length >= minLength)
 
 let SpellingBeeFilter (requiredLetter: char) (allowedLetters: string) wordSeq =
     let requiredUpper = requiredLetter |> System.Char.ToUpperInvariant
@@ -43,7 +31,7 @@ let main args =
         let requiredLetter = args[0].Chars(0)
 
         let filteredSeq =
-            GetWordsFromFile "words_alpha.txt" 4 |> SpellingBeeFilter requiredLetter args[1]
+            GetWordsFromFile "words_alpha.txt" |> SpellingBeeFilter requiredLetter args[1]
 
         for w in filteredSeq do
             printfn "%s" w
