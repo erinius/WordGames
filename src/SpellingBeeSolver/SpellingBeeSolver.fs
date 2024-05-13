@@ -1,24 +1,6 @@
 ﻿module SpellingBeeSolver
 
-open Words
-
-
-let isValidWord (requiredBit: int) (allowedBits: int) (word: string) : bool =
-    let givenBits = wordToBitfield word
-    ((givenBits &&& requiredBit) <> 0) && ((givenBits &&& (~~~allowedBits)) = 0)
-
-let wordChecker (requiredLetter: char) (allowedLetters: string) =
-    let requiredBit = charToBitfield requiredLetter
-    let allowedBits = requiredBit ||| wordToBitfield allowedLetters
-    isValidWord requiredBit allowedBits
-
-let SpellingBeeFilter (requiredLetter: char) (allowedLetters: string) (wordSeq: string seq) =
-    let requiredUpper = requiredLetter |> System.Char.ToUpperInvariant
-    let allowedUpper = allowedLetters.ToUpperInvariant()
-    let checker = wordChecker requiredUpper allowedUpper
-
-    wordSeq |> Seq.filter checker
-
+open WordGames.Library.SpellingBee
 
 [<EntryPoint>]
 let main args =
@@ -28,12 +10,7 @@ let main args =
         1
 
     else
-        let requiredLetter = args[0].Chars(0)
-
-        let filteredSeq =
-            GetWords
-            |> SpellingBeeFilter requiredLetter args[1]
-            |> Seq.filter (fun w -> w.Length >= 4)
+        let filteredSeq = getSolutionsFromArgs args[0] args[1]
 
         for w in filteredSeq do
             printfn "%s" w

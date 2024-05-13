@@ -1,4 +1,4 @@
-module Words
+module WordGames.Library.Words
 
 open System.IO
 
@@ -15,9 +15,10 @@ let wordToBitfield (w: string) : int =
 let GetWordsFromFile path =
     File.ReadLines path |> Seq.map (fun w -> w.ToUpperInvariant())
 
-let path = "../../word_lists/words_alpha.txt"
+let wordListsDir = Path.Join(__SOURCE_DIRECTORY__, "..", "..", "word_lists")
+let mainListPath = Path.Join(wordListsDir, "words_alpha.txt")
 
-let GetWords = GetWordsFromFile path
+let GetWords = GetWordsFromFile mainListPath
 
 let wordsOfLength (length: int) =
-    GetWordsFromFile $"../../word_lists/words_length_{length}.txt"
+    GetWordsFromFile(Path.Join(wordListsDir, $"words_length_{length}.txt"))

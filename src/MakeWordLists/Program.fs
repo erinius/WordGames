@@ -1,7 +1,7 @@
 ﻿module MakeWordLists
 
 open System.IO
-open Words
+open WordGames.Library.Words
 
 let wordsByLength = GetWords |> Seq.groupBy (fun w -> w.Length)
 
